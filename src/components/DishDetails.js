@@ -35,14 +35,14 @@ function RenderComments({comments}) {
     });
   }
   function DishDetails(props) {
-    if (props.dish !== undefined) {
+    if (props.dish !== undefined  || props!= null) {
       return (
         <div className="container">
           <div className="row ">
             <RenderDish dish={props.dish} />
             <div className="col-12 col-md-5 m-1">
               <h4>Comments</h4>
-              <RenderComments comments={props.dish.comments}/>
+              <RenderComments comments={props.comments}/>
             </div>
           </div>
         </div>
