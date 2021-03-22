@@ -39,7 +39,7 @@ function RenderDish({ dish }) {
 function RenderComments({ comments }) {
   return comments.map((comment) => {
     return (
-      <div key={`c-${comment.id}`}>
+      <div key={`c-${comment.id}`} className="my-3">
         {" "}
         <div>{comment.comment}</div>
         --{comment.author},{" "}
@@ -95,13 +95,10 @@ class DishDetails extends React.Component {
     this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
   }
   toggleCommentModal() {
-    console.log("toggle");
     this.setState({ isCommentModalOpen: !this.state.isCommentModalOpen });
   }
   handleCommentSubmit(values) {
-    console.log("Current State is: " + JSON.stringify(values));
-    alert("Current State is: " + JSON.stringify(values));
-
+    this.props.addComment(this.props.dish.id,values.rating,values.name,values.comment);
     this.setState({ isCommentModalOpen: false });
   }
 
