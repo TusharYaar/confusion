@@ -17,6 +17,7 @@ import {
   BreadcrumbItem
 } from "reactstrap";
 import {Link} from "react-router-dom";
+import { Loading } from './LoadingComponent';
 import { Control, LocalForm, Errors } from "react-redux-form";
 
 function RenderDish({ dish }) {
@@ -54,8 +55,38 @@ function RenderComments({ comments }) {
 }
 
 function RenderAll({ props, onclick }) {
-  if (props.dish !== undefined || props != null) {
+  if (props.isLoading) {
+    return(
+        <div className="container">
+            <div className="row">            
+                <Loading />
+            </div>
+        </div>
+    );
+}
+else if (props.errMess) {
+    return(
+        <div className="container">
+            <div className="row">            
+                <h4>{props.errMess}</h4>
+            </div>
+        </div>
+    );
+}
+
+
+  else if (props.dish !== undefined && props != null) {
     return (
+      <div>
+                <div className="row">
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <Link to="/menu">Menu</Link>
+          </BreadcrumbItem>
+          <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+        </Breadcrumb>
+        </div>
+
       <div className="row ">
         <RenderDish dish={props.dish} />
         <div className="col-12 col-md-5 m-1">
@@ -70,6 +101,7 @@ function RenderAll({ props, onclick }) {
             <span className="fa fa-pencil fa-lg"></span> Submit Comment
           </Button>
         </div>
+      </div>
       </div>
     );
   } else
@@ -108,14 +140,6 @@ class DishDetails extends React.Component {
     const minLength = (len) => (val) => val && val.length >= len;
     return (
       <div className="container">
-        <div className="row">
-        <Breadcrumb>
-          <BreadcrumbItem>
-            <Link to="/menu">Menu</Link>
-          </BreadcrumbItem>
-          <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
-        </Breadcrumb>
-        </div>
         <RenderAll props={this.props} onclick={this.toggleCommentModal} />
         <Modal
           isOpen={this.state.isCommentModalOpen}
