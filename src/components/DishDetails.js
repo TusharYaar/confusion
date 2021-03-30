@@ -131,7 +131,7 @@ class DishDetails extends React.Component {
     this.setState({ isCommentModalOpen: !this.state.isCommentModalOpen });
   }
   handleCommentSubmit(values) {
-    this.props.addComment(this.props.dish.id,values.rating,values.name,values.comment);
+    this.props.postComment(this.props.dish.id,values.rating,values.name,values.comment);
     this.setState({ isCommentModalOpen: false });
   }
 
@@ -146,7 +146,7 @@ class DishDetails extends React.Component {
           isOpen={this.state.isCommentModalOpen}
           toggle={this.toggleCommentModal}
         >
-          <ModalHeader toggle={this.toggleCommentModal}>Add Commit</ModalHeader>
+          <ModalHeader toggle={this.toggleCommentModal}>Add Comment</ModalHeader>
           <ModalBody>
             <LocalForm onSubmit={this.handleCommentSubmit}>
               <FormGroup>
